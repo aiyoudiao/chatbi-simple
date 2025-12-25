@@ -32,10 +32,10 @@ const AvaAdvisor: React.FC<AvaAdvisorProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-full h-full overflow-hidden box-border p-4">
+    <div className="cs-w-full cs-h-full cs-overflow-hidden cs-box-border cs-p-4">
       {adviseResults[0] ? (
         <G2Chart
-          className="bg-white"
+          className="cs-bg-white"
           chartRef={chartRef}
           spec={adviseResults[0]?.spec}
         />

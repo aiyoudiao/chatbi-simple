@@ -8,7 +8,7 @@ interface TableProps {
 
 const Table = ({ columns, dataSource }: TableProps) => {
   return dataSource && dataSource.length > 0 ? (
-    <Card className="w-full overflow-x-scroll">
+    <Card className="cs-w-full cs-overflow-x-scroll">
       <AntdTable
         rowKey={`${columns[0].dataIndex}`}
         size="small"

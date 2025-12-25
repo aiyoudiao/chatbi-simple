@@ -20,7 +20,7 @@ export default [
   },
   {
     path: "/playground",
-    component: "./Playground",
+    component: "./Playground/demo",
     name: "演练场",
     wrappers: ["@/wrappers/container"],
     exact: true,

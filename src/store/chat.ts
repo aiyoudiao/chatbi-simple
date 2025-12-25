@@ -1,8 +1,8 @@
-import { logger } from '@/utils/logger';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { logger } from "@/utils/logger";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-const log = logger.extend('ChatStore');
+const log = logger.extend("ChatStore").debug;
 
 type ChatStore = {
   prompt: string;
@@ -25,12 +25,12 @@ type ChatStore = {
 const useChatDbStore = create(
   persist<ChatStore>(
     (set) => ({
-      prompt: '',
+      prompt: "",
       messages: [],
-      chatType: 'chat',
+      chatType: "chat",
       autoVisualize: true,
       visualizing: false,
-      autoVizType: 'ava',
+      autoVizType: "ava",
 
       setAutoVizType: (autoVizType: string) => {
         set(() => {
@@ -68,7 +68,7 @@ const useChatDbStore = create(
         });
       },
       setMessages: (messages: Chat.IMessage[]) => {
-        log('setMessages', messages);
+        log("setMessages", messages);
         set((state) => {
           return {
             messages: [...state.messages, ...messages],
@@ -76,7 +76,7 @@ const useChatDbStore = create(
         });
       },
       addMessage: (messages: Chat.IMessage[]) => {
-        log('addMessage', messages);
+        log("addMessage", messages);
         set((state) => {
           return {
             messages: [...state.messages, ...messages],
@@ -92,10 +92,10 @@ const useChatDbStore = create(
       },
     }),
     {
-      name: 'chat-db-storage',
+      name: "chat-db-storage",
       storage: createJSONStorage(() => localStorage),
-    },
-  ),
+    }
+  )
 );
 
 export default useChatDbStore;

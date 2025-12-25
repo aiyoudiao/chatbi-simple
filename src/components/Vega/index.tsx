@@ -35,7 +35,7 @@ const ReactVega: React.FC<VegaProps> = ({ spec, data }) => {
       });
     }
   }, [spec, data, theme]);
-  return <div ref={container} className="w-full w-[368px] bg-white p-5"></div>;
+  return <div ref={container} className="cs-w-full cs-bg-white cs-p-5"></div>;
 };
 
 export default ReactVega;

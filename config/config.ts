@@ -177,4 +177,9 @@ export default defineConfig({
   requestRecord: {},
   // exportStatic: {},
   tailwindcss: {},
+  // 全局通用的环境变量
+  define: {
+    DIFY_API_URL: process.env.DIFY_API_URL,
+    DIFY_API_KEY: process.env.DIFY_API_KEY,
+  },
 });

@@ -15,19 +15,22 @@ const AvaInsight: React.FC<AvaInsightProps> = ({ data }) => {
 
   useEffect(() => {
     async function getInsight() {
+      console.log('data ', data)
       const insightResult = getInsights(data, {
         limit: 10,
         // dimensions: [{ fieldName: 'date' }],
         // measures: [{ fieldName: 'discount_price', method: 'SUM' }],
         visualization: true,
+        homogeneous: true,
       });
+      console.log('insightResult ', insightResult)
       setResult(insightResult);
     }
     getInsight();
   }, [data]);
 
   return result.insights?.length > 0 ? (
-    <div className="w-full h-full overflow-hidden">
+    <div className="cs-w-full cs-h-full cs-overflow-hidden">
       <Carousel arrows={false}>
         {result.insights &&
           result.insights.map((insight, index) => {
@@ -36,7 +39,7 @@ const AvaInsight: React.FC<AvaInsightProps> = ({ data }) => {
       </Carousel>
     </div>
   ) : (
-    <span>No visualization found.</span>
+    <span>未找到可视化结果。</span>
   );
 };
 
