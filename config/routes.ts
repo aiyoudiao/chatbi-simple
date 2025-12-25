@@ -1,8 +1,15 @@
 export default [
   {
-    path: "/user",
+    path: "/auth",
     layout: false,
-    routes: [{ name: "登录", path: "/user/login", component: "./User/Login" }],
+    routes: [
+      { name: "登录", path: "/auth/login", component: "./Auth/Login/auth" },
+      {
+        name: "授权回调",
+        path: "/auth/callback",
+        component: "./Auth/Callback",
+      },
+    ],
   },
   {
     path: "/home",

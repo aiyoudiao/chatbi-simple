@@ -187,7 +187,6 @@ const Playground: React.FC = () => {
 
 
   useIdleCallback(() => {
-    debugger
     if (container) {
       const scroll = container.querySelector('#chatbi-messages')!
       scroll.scrollTo({

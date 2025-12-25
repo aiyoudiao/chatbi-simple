@@ -11,6 +11,7 @@ import React from 'react';
 import { flushSync } from 'react-dom';
 import { outLogin } from '@/services/ant-design-pro/api';
 import HeaderDropdown from '../HeaderDropdown';
+import { handleLogout, loginPath } from '@/utils/auth';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -58,9 +59,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({
     /** 此方法会跳转到 redirect 参数所在的位置 */
     const redirect = urlParams.get('redirect');
     // Note: There may be security issues, please note
-    if (window.location.pathname !== '/user/login' && !redirect) {
+    if (window.location.pathname !== loginPath && !redirect) {
       history.replace({
-        pathname: '/user/login',
+        pathname: loginPath,
         search: searchParams.toString(),
       });
     }
@@ -75,7 +76,8 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({
       flushSync(() => {
         setInitialState((s) => ({ ...s, currentUser: undefined }));
       });
-      loginOut();
+      // loginOut();
+      handleLogout()
       return;
     }
     history.push(`/account/${key}`);

@@ -32,6 +32,9 @@ importers:
       '@antv/g2plot':
         specifier: ^2.4.32
         version: 2.4.35
+      '@authing/web':
+        specifier: ^5.1.21
+        version: 5.1.21(debug@4.4.3)
       '@umijs/max':
         specifier: ^4.4.5
         version: 4.6.14(@babel/core@7.4.5)(@types/node@24.10.4)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(@types/webpack@5.28.5)(debug@4.4.3)(dva@2.5.0-beta.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(jest@30.2.0(@types/node@24.10.4)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3)))(lightningcss@1.22.1)(prettier@2.8.8)(rc-field-form@2.7.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(rollup@3.29.5)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)(type-fest@4.41.0)(typescript@5.9.3)(webpack@5.104.1)
@@ -531,6 +534,9 @@ packages:
 
   '@antv/vendor@1.0.11':
     resolution: {integrity: sha512-LmhPEQ+aapk3barntaiIxJ5VHno/Tyab2JnfdcPzp5xONh/8VSfed4bo/9xKo5HcUAEydko38vYLfj6lJliLiw==}
+
+  '@authing/web@5.1.21':
+    resolution: {integrity: sha512-2UHwm482Cqg8cLRNc9v+JFqKm7ZyhYK51He/XZ27GxqKtmdM/eoBm3QeeBcPoIIWUCXwBIZ8foRXWuaSz+fTsw==}
 
   '@babel/code-frame@7.12.11':
     resolution: {integrity: sha512-Zt1yodBx1UcyiePMSkWnU4hPqhwq7hGi2nFL1LeA3EUl+q2LQx16MISgJ0+z7dnmgvP9QtIleuETGOiOH1RcIw==}
@@ -4241,6 +4247,9 @@ packages:
 
   axios@0.27.2:
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+
+  axios@1.13.2:
+    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
 
   babel-jest@29.7.0:
     resolution: {integrity: sha512-BrvGY3xZSwEcCzKvKsCi2GgHqDqsYkOP4/by5xCgIwGXQxIEh+8ew3gmrE1y7XRR6LHZIj6yLYnUi/mm2KXKBg==}
@@ -13802,6 +13811,12 @@ snapshots:
       d3-time: 3.1.0
       d3-timer: 3.0.1
 
+  '@authing/web@5.1.21(debug@4.4.3)':
+    dependencies:
+      axios: 1.13.2(debug@4.4.3)
+    transitivePeerDependencies:
+      - debug
+
   '@babel/code-frame@7.12.11':
     dependencies:
       '@babel/highlight': 7.25.9
@@ -19120,6 +19135,14 @@ snapshots:
     dependencies:
       follow-redirects: 1.15.11(debug@4.4.3)
       form-data: 4.0.5
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.13.2(debug@4.4.3):
+    dependencies:
+      follow-redirects: 1.15.11(debug@4.4.3)
+      form-data: 4.0.5
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
 

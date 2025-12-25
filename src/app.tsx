@@ -1,16 +1,51 @@
-import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
-import type { RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
-import { history, Link } from '@umijs/max';
-import React from 'react';
+import type { IRoute, RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
+import { history } from '@umijs/max';
 import { AvatarDropdown, AvatarName, Footer, Question } from '@/components';
-import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import '@ant-design/v5-patch-for-react-19';
+import { authingClient, checkTokenValid, getCurrentUser, getToken, isWithWhiteList } from './utils/auth';
+import { logger } from './utils/logger';
+
+
+const log = logger.extend('app:onRouteChange');
+
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
+
+
+let checking = false;
+
+export async function onRouteChange({
+  location,
+  routes,
+}: {
+  location: Location;
+  routes: IRoute[];
+}) {
+  const { pathname } = location;
+
+  // 白名单直接放行
+  if (isWithWhiteList(pathname)) {
+    return;
+  }
+
+  // 避免重复触发
+  if (checking) return;
+  checking = true;
+
+  try {
+    const loggedIn = await checkTokenValid();
+
+    if (!loggedIn) {
+      // 如果当前就是回调页，不要再跳
+      authingClient.loginWithRedirect();
+    }
+  } finally {
+    checking = false;
+  }
+}
 
 /**
  * @see https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -21,20 +56,10 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
-  const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
-    } catch (_error) {
-      history.push(loginPath);
-    }
-    return undefined;
-  };
+  const fetchUserInfo = getCurrentUser;
   // 如果不是登录页面，执行
   const { location } = history;
-  if (![loginPath, '/user/register', '/user/register-result'].includes(location.pathname)) {
+  if (!isWithWhiteList(location.pathname)) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -63,13 +88,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       content: initialState?.currentUser?.name,
     },
     // footerRender: () => <Footer />,
-    onPageChange: () => {
-      const { location } = history;
-      // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
-    },
+    // onPageChange: () => {
+    //   const { location } = history;
+    //   // 如果没有登录，重定向到 login
+    //   if (!initialState?.currentUser && location.pathname !== loginPath) {
+    //     history.push(loginPath);
+    //   }
+    // },
     bgLayoutImgList: [
       {
         src: 'https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/D2LWSqNny4sAAAAAAAAAAAAAFl94AQBr',
@@ -135,4 +160,16 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 export const request: RequestConfig = {
   baseURL: 'https://proapi.azurewebsites.net',
   ...errorConfig,
+  requestInterceptors: [
+    async (config: any) => {
+      const token = await getToken();
+      if (token) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${token}`,
+        };
+      }
+      return config;
+    },
+  ],
 };
