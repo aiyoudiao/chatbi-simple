@@ -17,6 +17,7 @@ const authingOption = {
   appId: "692ea48a6ea5bafc18dabf3f",
   redirectUri: `${window.location.origin}${prefix}/auth/callback`,
   userPoolId: "692ea4892e466f3f9b341ffc",
+  redirectResponseMode: "query",
 };
 export const authingClient = new Authing(authingOption);
 
