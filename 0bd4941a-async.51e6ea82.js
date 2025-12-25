@@ -1,2 +1,0 @@
-(("undefined"!=typeof globalThis?globalThis:self)["makoChunk_chatbi-simple"]=("undefined"!=typeof globalThis?globalThis:self)["makoChunk_chatbi-simple"]||[]).push([["0bd4941a"],{"678b7c86":function(e,l,a){"use strict";a.d(l,"__esModule",{value:!0}),a.d(l,"default",{enumerable:!0,get:function(){return i;}});var s=a("94a7e9a3"),o=a("8fdf2a5a");a("69341729");var i=()=>(0,s.jsx)("div",{className:"cs-overflow-y-auto cs-box-border cs-rounded-lg",style:{height:"calc(100vh - 120px)"},children:(0,s.jsx)(o.Outlet,{})});}}]);
-//# sourceMappingURL=0bd4941a-async.51e6ea82.js.map
